@@ -1,0 +1,40 @@
+IMAGENS DO SITE
+
+ESTADO ATUAL: placeholders azuis rotulados "imagem provisória".
+
+As fotos de banco (Pexels) que estavam aqui foram REMOVIDAS de propósito. Duas
+razões:
+
+1. A mulher da foto do hero não é a Dra. Maria Inês — e, pior, usava
+   ESTETOSCÓPIO. É uma médica genérica, não uma dentista. Qualquer
+   cirurgiã-dentista identifica isso antes de ler uma palavra da página.
+2. A foto rotulada "central de esterilização" era, na verdade, uma coroa
+   protética. Ilustrar uma afirmação de biossegurança com o objeto errado é o
+   tipo de detalhe que perde a conversa com uma clínica.
+
+As originais estão em .impeccable/backup-2026-09-24/ caso precise consultá-las.
+
+ARQUIVO                TAMANHO     CONTEÚDO ATUAL
+dra-maria-ines.jpg     900x1200    placeholder "Retrato da Dra."
+consultorio-dra.jpg    1000x1000   placeholder "A Dra. em atendimento"
+estrutura-1.jpg        1200x900    placeholder "Recepção"
+estrutura-2.jpg        1200x900    placeholder "Consultório"
+estrutura-3.jpg        1200x900    placeholder "Central de esterilização"
+og-capa.jpg            1200x630    cartão com nome, telefone e endereço REAIS
+
+COMO TROCAR PELAS FOTOS REAIS
+Sobrescreva cada arquivo mantendo o mesmo nome. O CSS não muda: cada imagem é
+um background-image sobre um degradê desenhado, então a troca é só o arquivo.
+Exportar em JPG qualidade 80, largura máxima de 1600px.
+
+og-capa.jpg NÃO é placeholder. Contém apenas dados verificados no Google Maps
+e pode ser publicado como está.
+
+REGERAR OS PLACEHOLDERS
+node preview/gerar-placeholders.mjs   (usa Playwright)
+Os originais ficam em placeholders-antigos/.
+
+SOBRE A LICENÇA PEXELS (para quando voltar a usar banco de imagens)
+Uso gratuito, inclusive comercial, sem atribuição. Mas NÃO é permitido sugerir
+que as pessoas retratadas endossam o consultório — que é exatamente o que uma
+foto de desconhecida sob o nome da Dra. faria.

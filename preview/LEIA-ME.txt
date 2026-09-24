@@ -1,0 +1,64 @@
+PRÉVIA EM VÍDEO — DUAS VERSÕES
+
+MOBILE (retrato, para WhatsApp e celular)
+  Captura 390x844 com DPR 3 = quadros de 1170x2532.
+  Página mobile: 13.511 px roláveis. 50s de rolagem + 2s no topo + 2,5s no
+  rodapé = 54,5s, 1635 quadros a 30 fps.
+
+  site-scroll-mobile.mp4 .... 1080x2338, 30 fps ...  23 MB  <- use este
+  site-scroll-mobile.webp ....  420x909, 20 fps ...  13 MB  (embutir em página)
+
+DESKTOP (paisagem, para portfólio e proposta)
+  Captura 1280x800 com DPR 2 = quadros de 2560x1600.
+  35s de rolagem + pausas = 39,5s, 1185 quadros a 30 fps.
+
+  site-scroll-desktop.mp4 ... 1920x1200, 30 fps ...  15 MB  <- use este
+  site-scroll-desktop.webp ..   800x500, 20 fps ... 9,5 MB  (embutir em página)
+
+Capturar no dobro/triplo do tamanho e reduzir na codificação deixa texto e
+linhas finas bem mais nítidos do que capturar direto no tamanho final.
+
+SEM GIF NESTA RODADA
+Com 54,5s (mobile) e 39,5s (desktop), um GIF passa de 90 MB: o formato guarda
+cada quadro como imagem inteira e a rolagem muda a tela toda. O MP4 entrega
+resolução maior por um terço do peso. Os dois .gif que ainda estão na pasta são
+da renderização de 23/09 20:27, ANTES das alterações no site — estão
+desatualizados. Apague-os ou peça para regerar.
+
+--------------------------------------------------------------------
+COMO REGERAR
+
+  npm i playwright ffmpeg-static
+  npx playwright install chromium
+  # (no Linux pode faltar libnspr4, libnss3 e libasound2 para o Chromium subir)
+
+  # MOBILE — é o padrão do script
+  node capturar-gif.mjs ./frames-mobile
+
+  ffmpeg -framerate 30 -i frames-mobile/f%04d.png \
+    -vf "scale=1080:-2:flags=lanczos,format=yuv420p" \
+    -c:v libx264 -crf 18 -preset slow -movflags +faststart -y site-scroll-mobile.mp4
+
+  ffmpeg -framerate 30 -i frames-mobile/f%04d.png -vf "fps=20,scale=420:-1:flags=lanczos" \
+    -c:v libwebp_anim -lossless 0 -q:v 45 -loop 0 -y site-scroll-mobile.webp
+
+  # DESKTOP — mesmo script, medidas por variável de ambiente
+  VP_W=1280 VP_H=800 VP_DPR=2 SEG_SCROLL=35 node capturar-gif.mjs ./frames-desktop
+
+  ffmpeg -framerate 30 -i frames-desktop/f%04d.png \
+    -vf "scale=1920:-2:flags=lanczos,format=yuv420p" \
+    -c:v libx264 -crf 18 -preset slow -movflags +faststart -y site-scroll-desktop.mp4
+
+  ffmpeg -framerate 30 -i frames-desktop/f%04d.png -vf "fps=20,scale=800:-1:flags=lanczos" \
+    -c:v libwebp_anim -lossless 0 -q:v 45 -loop 0 -y site-scroll-desktop.webp
+
+VARIÁVEIS ACEITAS PELO capturar-gif.mjs
+  SITE_URL ..... endereço do site (padrão: ../index.html ao lado do script)
+  VP_W / VP_H .. tamanho da janela (padrão 390x844)
+  VP_DPR ....... fator de escala da captura (padrão 3)
+  VP_FPS ....... quadros por segundo (padrão 30)
+  SEG_SCROLL ... segundos de rolagem (padrão 50)
+
+Cada captura ocupa ~650 MB temporários e leva ~5,5 min.
+
+Para regerar os placeholders azuis das fotos: node gerar-placeholders.mjs
