@@ -28,6 +28,11 @@
 
 <link rel="stylesheet" href="css/styles.css">
 
+<!-- Marca o <html> antes da primeira pintura: .js sempre; .anim só quando o visitante
+     não pediu menos movimento e a URL não traz ?estatico (útil para capturas de página inteira).
+     Sem esta linha, ou sem js/main.js, nada começa escondido. -->
+<script>(function(d){var c=' js';try{if(!/[?&]estatico\b/.test(location.search)&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window)c+=' anim'}catch(e){}d.className+=c})(document.documentElement)</script>
+
 <!-- Dados estruturados para o Google (SEO local).
      Só contém o que foi verificado no Google Maps. Não acrescentar geo, priceRange
      ou aggregateRating sem dado real: marcação falsa é penalizada e, aqui, seria invenção. -->
@@ -73,8 +78,9 @@
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.5 3h3l1.6 4-2 1.4a12 12 0 0 0 5.5 5.5l1.4-2 4 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-3.4 8-9.5V5.5L12 2.5 4 5.5V12.5C4 18.6 12 22 12 22Z"/><path d="M9 12l2 2 4-4"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5S3.5 15.6 3.5 9.7A4.7 4.7 0 0 1 12 6.8a4.7 4.7 0 0 1 8.5 2.9c0 5.9-8.5 10.8-8.5 10.8Z"/></symbol>
-  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path pathLength="1" d="M4 12.5l5 5L20 6.5"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></symbol>
   <symbol id="i-wpp" viewBox="0 0 24 24"><path d="M3.5 20.5l1.3-4.3A8.2 8.2 0 1 1 8 19.4l-4.5 1.1Z"/><path d="M9 9.2c.2 1.4 2.2 4 3.9 4.6.6.2 1.3.3 1.7-.2l.6-.8-2-1-.6.7c-1-.5-1.8-1.3-2.2-2.3l.8-.5-.8-2-.9.4c-.5.3-.6.7-.5 1.1Z"/></symbol>
   <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
@@ -106,7 +112,7 @@
   <div class="wrap header__in">
     <a class="brand" href="#inicio" aria-label="Página inicial">
       <span class="brand__mark" aria-hidden="true">
-        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M24 13c3.3-1.7 7.3-1.8 9.5.5 2.3 2.5 2 6.4 1.2 9.8-.7 2.8-1.1 4.2-1.5 7.3-.4 3.2-1 7.4-3.4 7.4-2.1 0-2.4-3-2.8-5.8-.4-2.8-.8-5.3-3-5.3s-2.6 2.5-3 5.3c-.4 2.8-.7 5.8-2.8 5.8-2.4 0-3-4.2-3.4-7.4-.4-3.1-.8-4.5-1.5-7.3-.8-3.4-1.1-7.3 1.2-9.8 2.2-2.3 6.2-2.2 9.5-.5Z"/></svg>
+        <svg viewBox="0 0 48 48"><circle pathLength="1" cx="24" cy="24" r="22"/><path pathLength="1" d="M24 13c3.3-1.7 7.3-1.8 9.5.5 2.3 2.5 2 6.4 1.2 9.8-.7 2.8-1.1 4.2-1.5 7.3-.4 3.2-1 7.4-3.4 7.4-2.1 0-2.4-3-2.8-5.8-.4-2.8-.8-5.3-3-5.3s-2.6 2.5-3 5.3c-.4 2.8-.7 5.8-2.8 5.8-2.4 0-3-4.2-3.4-7.4-.4-3.1-.8-4.5-1.5-7.3-.8-3.4-1.1-7.3 1.2-9.8 2.2-2.3 6.2-2.2 9.5-.5Z"/></svg>
       </span>
       <span class="brand__txt">
         <strong>Dra. Maria Inês</strong>
@@ -135,6 +141,7 @@
       <svg class="ico ico--close" aria-hidden="true"><use href="#i-close"></use></svg>
     </button>
   </div>
+  <span class="header__progress" aria-hidden="true"></span>
 </header>
 
 <main>
@@ -144,9 +151,9 @@
   <div class="wrap hero__in">
     <div class="hero__copy">
       <h1 class="hero__title">
-        Excelência em<br>
-        <span class="accent">Odontologia</span><br>
-        <span class="serif-i">Moderna.</span>
+        <span class="line"><span>Excelência em</span></span>
+        <span class="line"><span class="accent">Odontologia</span></span>
+        <span class="line"><span class="serif-i">Moderna.</span></span>
       </h1>
       <p class="hero__lead">
         No consultório da <strong>Dra. Maria Inês Rocha Machado</strong> cada tratamento começa por ouvir você.
@@ -504,13 +511,18 @@
      Some quando o formulário de contato está na tela, para não cobrir o botão de envio.
      Trocar o número do WhatsApp em js/main.js (CONFIG.whatsapp). -->
 <div class="dock" id="dock">
-  <a class="btn btn--ghost" href="tel:+552732272022">
+  <a class="btn btn--accent" href="tel:+552732272022">
     <svg class="ico" aria-hidden="true"><use href="#i-phone"></use></svg> Ligar
   </a>
   <a class="btn btn--accent" id="dockWpp" href="https://wa.me/5527999999999" target="_blank" rel="noopener">
     <svg class="ico" aria-hidden="true"><use href="#i-wpp"></use></svg> WhatsApp
   </a>
 </div>
+
+<!-- Voltar ao topo: só no desktop (no celular o dock ocupa a zona do polegar). -->
+<a class="to-top" id="toTop" href="#inicio" aria-label="Voltar ao topo">
+  <svg class="ico" aria-hidden="true"><use href="#i-up"></use></svg>
+</a>
 
 <script src="js/main.js" defer></script>
 </body>

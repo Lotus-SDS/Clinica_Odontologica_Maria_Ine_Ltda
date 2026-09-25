@@ -1,5 +1,13 @@
 PRÉVIA EM VÍDEO — DUAS VERSÕES
 
+ATENÇÃO (25/09): os .mp4 e .webp desta pasta foram gravados ANTES das
+animações do site. Regere com os comandos abaixo antes de enviar.
+O capturar-gif.mjs agora congela as animações e avança cada uma exatamente
+1/30 s por quadro. Sem isso, como cada captura leva bem mais que 33 ms, as
+entradas pareceriam pular no vídeo. A pausa no topo passou de 2 s para 3,5 s
+para caber a abertura do hero (a marca se desenha, o título sobe, o retrato
+sobe como cortina). As durações listadas abaixo são da gravação antiga.
+
 MOBILE (retrato, para WhatsApp e celular)
   Captura 390x844 com DPR 3 = quadros de 1170x2532.
   Página mobile: 13.511 px roláveis. 50s de rolagem + 2s no topo + 2,5s no

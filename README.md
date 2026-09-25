@@ -13,7 +13,7 @@ hospedagem estática (Hostinger, Netlify, Vercel, GitHub Pages).
 ```
 index.html          página completa
 css/styles.css      estilos (tema claro — branco e azul)
-js/main.js          menu, formulário, dock e link ativo
+js/main.js          menu, formulário, dock, link ativo e entradas na rolagem
 assets/             imagens (ver assets/LEIA-ME.txt)
 preview/            vídeo de apresentação e scripts de captura
 .impeccable/        backup do estado anterior e histórico de crítica
@@ -72,17 +72,27 @@ const CONFIG = {
 
 - Responsivo (desktop, tablet e celular), gaveta lateral no mobile com foco preso e Escape
 - **Funciona inteiro sem JavaScript** — nenhum conteúdo depende de script para aparecer
-- Dock fixo no celular com telefone e WhatsApp no mesmo peso; some quando o formulário entra na tela
+- Dock fixo no celular com telefone e WhatsApp no mesmo peso (mesmo botão, só ícone e rótulo mudam); some quando o formulário entra na tela
 - Dados estruturados `schema.org/Dentist` para SEO local (só com dados verificados)
 - Acessibilidade: navegação por teclado, foco visível, `aria-*`, alvos de toque de 44px,
   contraste AA em texto e bordas de campo, link "pular para o conteúdo"
-- Uma única animação autoral (entrada do hero), com `prefers-reduced-motion`
+- Movimento (fim de `css/styles.css`, seção "Movimento"):
+  - **abertura** — a marca se desenha, o título sobe linha a linha, o retrato sobe como cortina;
+  - **rolagem** — títulos saem de uma fenda, cards sobem em sequência por coluna, fotos assentam
+    dentro dos cards, os checks do "A Dra." se traçam e cada campo tracejado recebe um brilho
+    único ao aparecer (o recado do que falta preencher);
+  - **detalhes** — barra de progresso no header, voltar ao topo (desktop), véu atrás do menu,
+    dúvidas que abrem e fecham com suavidade, mapa com brilho de carregamento, erro do formulário
+    que treme de leve e botão que confirma o envio.
+- O estado padrão de tudo é visível. Sem JavaScript, com `prefers-reduced-motion`, na impressão
+  ou abrindo com `?estatico` na URL (útil para prints de página inteira), nada começa escondido
 - Sem dependências além do Google Fonts
 
 ## Prévia
 
 `preview/` traz a rolagem completa do site em GIF e MP4, mais os scripts que geram esses arquivos.
 
-> **O vídeo atual está desatualizado.** Foi gravado em 1280×800 (desktop) e antes destas mudanças.
-> `capturar-gif.mjs` já está configurado para 390×844 retrato, que é como a apresentação é
-> assistida. Regere antes de enviar — ver `preview/LEIA-ME.txt`.
+> **Os vídeos atuais estão desatualizados.** Foram gravados antes das animações.
+> `capturar-gif.mjs` agora controla o relógio das animações: cada quadro avança exatamente
+> 1/30 s, então as entradas aparecem suaves no vídeo e a abertura do hero entra nos primeiros
+> 3,5 s. Regere antes de enviar — ver `preview/LEIA-ME.txt`.
